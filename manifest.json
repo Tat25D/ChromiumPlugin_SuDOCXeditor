@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "SuDOCX - Photo Editor v.0.1",
+  "version": "0.1",
+  "description": "Профессиональный интерфейс для редактирования А4",
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Открыть редактор",
+    "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

@@ -1,0 +1,56 @@
+      <!-- Панель Решётки (Mesh Warp Pro) -->
+      <div id="grid-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+        <div class="prop-group">
+          <label>Пресеты ячеек:</label>
+          <div class="btn-row" id="grid-presets-container">
+            <button id="grid-preset-3" class="action-btn" style="padding:6px;">3x3</button>
+            <button id="grid-preset-4" style="padding:6px; background:#3c3c3c; border:1px solid#555;">4x4</button>
+          </div>
+        </div>
+
+        <div class="prop-group">
+          <label>Область деформации:</label>
+          <button id="grid-btn-define" style="padding: 8px; background:#3c3c3c; color:#fff; border: 1px solid#555; width: 100%; cursor: pointer;">Задать решётку (Мышью)</button>
+        </div>
+
+        <div class="prop-group">
+          <label id="grid-action-label">Радиус действия эффекта (лог.):</label>
+          <input type="range" id="grid-radius-action" min="0" max="100" value="81" step="1">
+          <div style="font-size: 11px; text-align: right; color:#00ff99;" id="grid-radius-action-value">150 px</div>
+        </div>
+
+        <div class="prop-group">
+          <label>Радиус сглаживания краев:</label>
+          <input type="range" id="grid-radius-smooth" min="0" max="500" value="400" step="5">
+          <div style="font-size: 11px; text-align: right; color:#00ff99;" id="grid-radius-smooth-value">400 px</div>
+        </div>
+
+        <div class="prop-group">
+          <label>Тип деформации:</label>
+          <select id="grid-mode-select">
+            <option value="rect" selected>Прямоугольник (гнуть всю область)</option>
+            <option value="radial">Радиус от маркера</option>
+            <option value="tps">Лист (сплайн TPS)</option>
+          </select>
+        </div>
+
+        <div class="prop-group">
+          <label>Качество рендера (меш / суперсэмплинг):</label>
+            <select id="grid-quality-select">
+              <option value="draft" selected>Черновик (смартфон)</option>
+              <option value="normal">Среднее</option>
+              <option value="high">Высокое (ПК)</option>
+              <option value="ultra">Ультра (мощный ПК)</option>
+            </select>
+        </div>
+
+        <div class="prop-group" style="margin-top: 5px;">
+          <label>Живой просмотр деформации:</label>
+          <button id="grid-toggle-interactive" style="padding: 6px; background:#ff3333; border: 1px solid#ff3333; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Интерактивно: Включено</button>
+        </div>
+
+        <div style="display: flex; gap: 5px; margin-top: 10px;">
+          <button id="reset-grid-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-grid-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>

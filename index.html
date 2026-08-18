@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SuDOCX - Редактор фото v.0.1</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<div class="app-container">
+  <header class="header-panel">
+    <div class="logo">SuDOCX - Редактор фото v.0.1</div>
+    <div class="menu-container">
+      <button class="menu-btn" id="file-menu-btn">Файл</button>
+      <div class="dropdown-content" id="file-dropdown">
+        <button id="menu-open-btn">Открыть</button>
+        <button id="menu-clear-btn">Очистить</button>
+        <div class="dropdown-divider"></div>
+        <button id="menu-export-btn">Экспорт</button>
+        <button id="menu-export-markers-btn" style="color: #666; cursor: not-allowed;" disabled>Экспорт с маркерами</button>
+      </div>
+    </div>
+    <button class="menu-btn">Правка</button>
+    <button class="menu-btn">Вид</button>
+    <input type="file" id="upload-input" accept="image/*" style="display: none;">
+  </header>
+
+  <aside class="tools-panel">
+    <button class="tool-btn active" data-tool="open" title="Открыть файл">
+      <svg viewBox="0 0 24 24"><path d="M19,20H5V8H19M19,6H13.41L11.41,4H5A2,2 0 0,0 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V8A2,2 0 0,0 19,6Z"/></svg>Открыть
+    </button>
+    <button class="tool-btn" data-tool="rotate" title="Повернуть">
+      <svg viewBox="0 0 24 24"><path d="M7.11,8.53L5.7,7.11C4.8,8.07 4.24,9.24 4.09,10.5H6.11C6.25,9.78 6.6,9.1 7.11,8.53M18,24H6V22H18V24M19.91,10.5H21.91C21.76,9.24 21.2,8.07 20.3,7.11L18.89,8.53C19.4,9.1 19.75,9.78 19.91,10.5M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12H2A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2C6.48,2 2,6.48 2,12H4A8,8 0 0,1 12,4Z"/></svg>Поворот
+    </button>
+    <button class="tool-btn" data-tool="size" title="Размер">
+      <svg viewBox="0 0 24 24"><path d="M21,15H19V17H17V19H15V21H21V15M3,9H5V7H7V5H9V3H3V9M21,3H15V5H17V7H19V9H21V3M3,21H9V19H7V17H5V15H3V21Z"/></svg>Размер
+    </button>
+    <button class="tool-btn" data-tool="perspective" title="Перспектива">
+      <svg viewBox="0 0 24 24"><path d="M12,2L3,5V19L12,22L21,19V5L12,2M12,4.18L19,6.5V17.5L12,19.82L5,17.5V6.5L12,4.18Z"/></svg>Перспект.
+    </button>
+    <button class="tool-btn" data-tool="grid" title="Решётка">
+      <svg viewBox="0 0 24 24"><path d="M10,4V8H14V4H10M16,4V8H20V4H16M10,10V14H14V10H10M16,10V14H20V10H16M10,16V20H14V16H10M16,16V20H20V16H16M4,4V8H8V4H4M4,10V14H8V10H4M4,16V20H8V16H4Z"/></svg>Решётка
+    </button>
+    <button class="tool-btn" data-tool="crop" title="Обрезка">
+      <svg viewBox="0 0 24 24"><path d="M7,17V1H5V5H1V7H5V17A2,2 0 0,0 7,19H17V23H19V19H23V17H7M17,15H19V7A2,2 0 0,0 17,5H9V7H17V15Z"/></svg>Обрезка
+    </button>
+    <button id="tab-color" class="tool-btn" data-tool="color" title="Цвет">
+      <svg viewBox="0 0 24 24"><path d="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,7.5A1.5,1.5 0 0,1 13,6A1.5,1.5 0 0,1 14.5,4.5A1.5,1.5 0 0,1 16,6A1.5,1.5 0 0,1 14.5,7.5M9.5,7.5A1.5,1.5 0 0,1 8,6A1.5,1.5 0 0,1 9.5,4.5A1.5,1.5 0 0,1 11,6A1.5,1.5 0 0,1 9.5,7.5M6.5,12A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A3,3 0 0,0 15,19A3,3 0 0,0 14.21,17.75C14.67,16.89 15.56,16.3 16.58,16.3H19A5,5 0 0,0 24,11.3C24,6.17 18.62,2 12,2Z"/></svg>Цвет
+    </button>
+    <button class="tool-btn" data-tool="marker" title="Маркер">
+      <svg viewBox="0 0 24 24"><path d="M20.71,5.63L18.37,3.25C18,2.86 17.35,2.86 16.96,3.25L15,5.22L18.78,9L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63M3,17.25V21H6.75L17.81,9.94L14.06,6.19L3,17.25Z"/></svg>Маркер
+    </button>
+      <button class="tool-btn" data-tool="file" title="Файл: имя сохранения и шаблон">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <path d="M6 2h9l5 5v15H6V2zm2 2v16h10V8h-4V4H8z"/>
+          <path d="M9 11h6v2H9v-2zm0 4h4v2H9v-2z"/>
+        </svg>
+        Файл
+      </button>
+    <button class="tool-btn" data-tool="export" title="Экспорт">
+      <svg viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>Экспорт
+    </button>
+  </aside>
+
+  <main class="workspace-panel" id="workspace">
+    <canvas id="editorCanvas"></canvas>
+
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="canvas-zoom-out" title="Отдалить">-</button>
+      <button class="zoom-btn" id="canvas-zoom-reset" title="Пиксель в пиксель">1:1</button>
+      <button class="zoom-btn" id="canvas-zoom-fit" title="Вписать документ и рамку выравнивания в окно">100%</button>
+      <button class="zoom-btn" id="canvas-zoom-in" title="Приблизить">+</button>
+    </div>
+
+  </main>
+  <aside class="properties-panel">
+    <div class="panel-title">Свойства SuDOCX</div>
+
+    <div id="tool-settings">
+      <div class="prop-group">
+        <label>Активный режим:</label>
+        <span id="current-tool-name" style="color: #00ff99; font-weight: bold;">Открыть</span>
+      </div>
+
+      <div data-partial="open/open.html"></div>
+      <div data-partial="rotate/rotate.html"></div>
+      <div data-partial="size/size.html"></div>
+      <div data-partial="perspective/perspective.html"></div>
+      <div data-partial="grid/grid.html"></div>
+      <div data-partial="crop/crop.html"></div>
+      <div data-partial="color/color.html"></div>
+      <div data-partial="marker/marker.html"></div>
+      <div data-partial="file/file.html"></div>
+      <div data-partial="export/export.html"></div>
+
+    </div>
+  </aside>
+
+  <footer class="statusbar-panel">
+    <div id="status-message">Готов к работе. Воспользуйтесь кнопкой "Открыть" для загрузки бланка А4.</div>
+    <div class="status-right">
+      <span id="status-zoom">Зум: 100%</span>
+      <span id="status-coords">X: 0 Y: 0</span>
+    </div>
+  </footer>
+
+</div>
+
+<script type="module" src="editor.js"></script>
+</body>
+</html>

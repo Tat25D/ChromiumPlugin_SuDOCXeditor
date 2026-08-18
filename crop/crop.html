@@ -1,0 +1,53 @@
+      <!-- Панель Обрезки -->
+      <div id="crop-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+
+        <div class="prop-group">
+        <label>Наращивание полей:</label>
+        <button id="crop-extend-toggle" style="padding: 6px; background:#007acc; border: 1px solid#007acc; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Наращивать: Вкл</button>
+        </div>
+
+        <div class="prop-group">
+          <label>Заливка (ремонт краёв):</label>
+          <button id="crop-fill-toggle" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Режим заливки: Выкл</button>
+          <select id="crop-fill-mode">
+            <option value="edge" selected>Край (линия из 2 точек)</option>
+            <option value="poly">Ломаная линия (ПКМ завершить)</option>
+            <option value="rect">Прямоугольник</option>
+          </select>
+          <div style="font-size: 11px; color:#aaa;" id="crop-fill-hint">Включите режим и выберите тип выделения. Цвет берётся из палитры «Заливка полей».</div>
+        </div>
+
+        <div class="prop-group">
+        <label>Заливка полей:</label>
+        <div class="btn-row">
+            <button class="crop-fswatch" data-fcolor="bg" title="Фон документа (умная заливка с градиентом)" style="width:28px;height:28px;background:linear-gradient(135deg,#f5f0e6 40%,#8a8a8a 50%,#f5f0e6 60%);"></button>
+            <button class="crop-fswatch" data-fcolor="black" title="Чёрный" style="width:28px;height:28px;background:#000000;"></button>
+            <button class="crop-fswatch" data-fcolor="gray" title="Серый" style="width:28px;height:28px;background:#808080;"></button>
+            <button class="crop-fswatch" data-fcolor="white" title="Белый" style="width:28px;height:28px;background:#FFFFFF;"></button>
+        </div>
+        <label style="font-size: 11px; color:#aaa;">Порог тёмных тонов (текст/тени):</label>
+        <input type="range" id="crop-bg-threshold" min="0" max="240" value="130" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-bg-threshold-value">130</div>
+        <label style="font-size: 11px; color:#aaa;">Очистка от остатков текста:</label>
+        <input type="range" id="crop-clean" min="0" max="100" value="70" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-clean-value">70 %</div>
+        <label style="font-size: 11px; color:#aaa;">Захват кромки (внутрь оригинала):</label>
+        <input type="range" id="crop-overlap" min="0" max="32" value="8" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-overlap-value">8 px</div>
+        <label style="font-size: 11px; color:#aaa;">Учёт градиента освещения:</label>
+        <label style="font-size: 11px; color:#aaa;">Тон заливки (светлее / темнее):</label>
+        <input type="range" id="crop-tone" min="-60" max="60" value="0" step="2">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-tone-value">0</div>
+        <input type="range" id="crop-grad" min="0" max="100" value="60" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-grad-value">60 %</div>
+        <label style="font-size: 11px; color:#aaa;">Прозрачность эффекта:</label>
+
+        <input type="range" id="crop-fill-opacity" min="0" max="100" value="100" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-fill-opacity-value">100 %</div>
+        </div>
+
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <button id="reset-crop-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-crop-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>

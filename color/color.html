@@ -1,0 +1,122 @@
+      <!-- Панель инструмента "Цвет" (Скрыта по умолчанию) -->
+
+    <div id="color-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+
+      <div class="prop-group">
+        <label>Слой 1 — Выравнивание освещённости:</label>
+        <button id="color-toggle-level" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Сила:</label>
+        <input type="range" id="color-level-strength" min="0" max="100" value="70" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-strength-value">70 %</div>
+        <label style="font-size: 11px; color:#aaa;">Масштаб теней (блок):</label>
+        <input type="range" id="color-level-block" min="16" max="128" value="48" step="8">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-block-value">48 px</div>
+        <label style="font-size: 11px; color:#aaa;">Белизна бумаги:</label>
+        <input type="range" id="color-level-target" min="180" max="255" value="245" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-target-value">245</div>
+        <label style="font-size: 11px; color:#aaa;">Глубина коррекции (лимит усиления):</label>
+        <input type="range" id="color-level-depth" min="12" max="40" value="30" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-depth-value">x3.0</div>
+        <label style="font-size: 11px; color:#aaa;">Устранение цветового отлива:</label>
+        <input type="range" id="color-level-color" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-color-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 2 — Улучшенный OCR (ЧБ):</label>
+        <button id="color-toggle-ocr" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Размер окна (Шрифт):</label>
+        <input type="range" id="color-ocr-window" min="5" max="100" value="15" step="2">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-ocr-window-value">15 px</div>
+        <label style="font-size: 11px; color:#aaa;">Чувствительность (Порог):</label>
+        <input type="range" id="color-ocr-sens" min="0" max="100" step="1" value="36">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-ocr-sens-value">15 %</div>
+        <label style="font-size: 11px; color:#aaa;">Сила эффекта:</label>
+        <input type="range" id="color-ocr-strength" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-ocr-strength-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 3 — Оттенки серого:</label>
+        <button id="color-toggle-gray" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Сила:</label>
+        <input type="range" id="color-gray-strength" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-gray-strength-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 4 — Яркость и контраст:</label>
+        <button id="color-toggle-bc" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Яркость:</label>
+        <input type="range" id="color-bc-bright" min="-100" max="100" value="0" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-bright-value">0</div>
+        <label style="font-size: 11px; color:#aaa;">Контраст:</label>
+        <input type="range" id="color-bc-contrast" min="-100" max="100" value="0" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-contrast-value">0</div>
+        <label style="font-size: 11px; color:#aaa;">Гамма (полутона):</label>
+        <input type="range" id="color-bc-gamma" min="50" max="200" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-gamma-value">1.00</div>
+        <label>Сила эффекта:</label>
+        <input type="range" id="color-bc-strength" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-strength-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 5 — Ретушь-кисть:</label>
+        <button id="color-toggle-brush" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Режим работы кисти:</label>
+
+        <select id="color-brush-mode">
+          <option value="auto">Авто (фон→белый, текст→чёрный)</option>
+          <option value="auto2" selected>Авто 2 — щадящий (текст и градиенты сохраняются)</option>
+          <option value="bg">Осветлить фон</option>
+          <option value="text">Затемнить текст</option>
+        </select>
+
+          <label style="font-size: 11px; color:#aaa;">Защита текста (граница тёмных тонов, Авто 2):</label>
+          <input type="range" id="color-brush-protect" min="0" max="255" value="100" step="1">
+          <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-protect-value">100</div>
+          <option value="bg">Осветлить фон</option>
+          <option value="text">Затемнить текст</option>
+        </select>
+        <label style="font-size: 11px; color:#aaa;">Радиус кисти:</label>
+        <input type="range" id="color-brush-radius" min="5" max="100" value="20" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-radius-value">20 px</div>
+        <label style="font-size: 11px; color:#aaa;">Сила кисти:</label>
+        <input type="range" id="color-brush-strength" min="0" max="30" value="5" step="0.5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-strength-value">5%</div>
+        <label style="font-size: 11px; color:#aaa;">Порог Авто-режима:</label>
+        <input type="range" id="color-brush-threshold" min="0" max="255" value="128" step="1">
+        <label style="font-size: 11px; color:#aaa;">Защита текста (граница тёмных тонов, Авто 2):</label>
+        <input type="range" id="color-brush-protect" min="0" max="255" value="100" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-protect-value">100</div>
+
+        <div class="btn-row">
+          <button id="color-brush-undo" title="Отменить последний штрих" style="flex: 1; padding: 6px; background:#3c3c3c; border:1px solid#555;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:-2px;"><path d="M12.5 8C9.85 8 7.45 9.04 5.67 10.74L2 7v9h9l-3.63-3.63C8.81 10.91 10.54 10 12.5 10c3.04 0 5.62 1.96 6.57 4.69l1.88-.63C19.72 10.78 16.39 8 12.5 8z"/></svg>
+          </button>
+          <button id="color-brush-redo" title="Повторить отменённый штрих" style="flex: 1; padding: 6px; background:#3c3c3c; border:1px solid#555;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:-2px;"><path d="M11.5 8c2.65 0 5.05 1.04 6.83 2.74L22 7v9h-9l3.63-3.63C15.19 10.91 13.46 10 11.5 10c-3.04 0-5.62 1.96-6.57 4.69l-1.88-.63C4.28 10.78 7.61 8 11.5 8z"/></svg>
+          </button>
+        </div>
+        <label style="font-size:11px; color:#aaa;">Глубина истории (Undo):</label>
+        <input type="range" id="color-brush-history-max" min="1" max="30" value="5" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-history-max-value">5</div>
+
+
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-threshold-value">128</div>
+
+        <button id="color-brush-clear" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Очистить штрихи</button>
+
+      </div>
+
+      <div class="prop-group">
+        <label>Сравнение до/после:</label>
+        <button id="color-bypass-btn" title="Показать оригинал без всех слоёв эффекта" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Без эффектов: Выкл</button>
+      </div>
+
+      <div style="display: flex; gap: 5px; margin-top: 5px;">
+        <button id="reset-color-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+        <button id="apply-color-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+      </div>
+    </div>

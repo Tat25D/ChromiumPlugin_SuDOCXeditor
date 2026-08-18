@@ -1,0 +1,48 @@
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html { width: 100%; height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #1e1e1e; color: #e0e0e0; }
+    .app-container { display: grid; grid-template-rows: 45px 1fr 25px; grid-template-columns: 70px 1fr 250px; width: 100vw; height: 100vh; }
+    .header-panel { grid-column: 1 / span 3; background: #2d2d2d; border-bottom: 1px solid #3c3c3c; display: flex; align-items: center; padding: 0 15px; gap: 20px; z-index: 10; position: relative; }
+    .logo { font-weight: bold; color: #00ff99; font-size: 14px; letter-spacing: 1px; }
+
+    .menu-container { position: relative; display: inline-block; }
+    .menu-btn { background: transparent; border: none; color: #ccc; padding: 5px 10px; cursor: pointer; font-size: 13px; }
+    .menu-btn:hover, .menu-btn.active { color: #fff; background: #3c3c3c; border-radius: 3px; }
+    .dropdown-content { display: none; position: absolute; left: 0; top: 100%; background-color: #2d2d2d; min-width: 180px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5); border: 1px solid #3c3c3c; border-radius: 4px; z-index: 20; margin-top: 5px; }
+    .dropdown-content button { color: #ccc; padding: 8px 12px; text-decoration: none; display: block; width: 100%; text-align: left; background: transparent; border: none; font-size: 13px; cursor: pointer; }
+    .dropdown-content button:hover { background-color: #3c3c3c; color: #fff; }
+    .dropdown-divider { height: 1px; background-color: #3c3c3c; margin: 4px 0; }
+
+    .tools-panel { grid-column: 1; background: #252526; border-right: 1px solid #3c3c3c; display: flex; flex-direction: column; align-items: center; padding-top: 10px; gap: 8px; z-index: 5; }
+    .tool-btn { width: 54px; height: 52px; background: #2d2d2d; border: 1px solid #3c3c3c; color: #aaa; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 9px; gap: 2px; }
+    .tool-btn:hover { color: #fff; background: #333; }
+    .tool-btn.active { color: #00ff99; border-color: #00ff99; background: #1e1e1e; }
+    .tool-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .workspace-panel { grid-column: 2; background: #1e1e1e; position: relative; overflow: hidden; cursor: grab; }
+    .workspace-panel:active { cursor: grabbing; }
+    canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+    .zoom-controls{ position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: row; gap: 6px; z-index: 999; background: rgba(30, 30, 30, 0.9); padding: 5px; border: 1px solid #00ff99; border-radius: 8px; backdrop-filter: blur(6px); pointer-events: auto; }
+    .zoom-btn{ min-width: 34px; height: 30px; padding: 0 8px; background:#2d2d2d; border: 1px solid #444; color:#fff; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; pointer-events: auto; user-select: none; }
+
+    .properties-panel { grid-column: 3; background: #252526; border-left: 1px solid #3c3c3c; padding: 15px; display: flex; flex-direction: column; gap: 15px; z-index: 5; overflow-y: auto; }
+    .panel-title { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #888; border-bottom: 1px solid #3c3c3c; padding-bottom: 5px; }
+    .prop-group { display: flex; flex-direction: column; gap: 5px; }
+    .prop-group label { font-size: 12px; color: #bbb; }
+    .prop-group select, .prop-group input, .prop-group button { background: #3c3c3c; border: 1px solid #555; color: #fff; padding: 6px; border-radius: 4px; font-size: 13px; }
+    .info-span { font-size: 13px; color: #00ff99; font-weight: 500; word-break: break-all; }
+    .btn-row { display: flex; gap: 5px; }
+    .btn-row button { flex: 1; cursor: pointer; padding: 6px; }
+    .btn-row button:hover { background: #555; }
+    .action-btn { background: #007acc !important; border: none !important; cursor: pointer; font-weight: bold; }
+    .action-btn:hover { background: #0062a3 !important; }
+    .statusbar-panel { grid-column: 1 / span 3; background: #007acc; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; font-size: 11px; z-index: 10; }
+    .status-right { display: flex; gap: 15px; }
+
+    /* ========== АДАПТИВ, ЭТАП 1: укрупнённые тап-цели при сенсоре ========== */
+    body[data-touch="on"] .menu-btn{ padding: 8px 14px; font-size: 14px; }
+    body[data-touch="on"] .tool-btn{ width: 62px; height: 56px; }
+    body[data-touch="on"] .zoom-btn{ min-width: 44px; height: 40px; font-size: 14px; }
+    body[data-touch="on"] .prop-group select,
+    body[data-touch="on"] .prop-group input,
+    body[data-touch="on"] .prop-group button{ padding: 10px; font-size: 14px; }

@@ -1,0 +1,35 @@
+      <!-- Панель Размера -->
+      <div id="size-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+        <div class="prop-group">
+          <label>Текущий размер:</label>
+          <span id="size-current-value" style="font-size: 13px; color: #888;">0 x 0 px</span>
+        </div>
+        <div class="prop-group">
+          <label>Быстрые пресеты:</label>
+          <div class="btn-row" style="flex-direction: column; gap: 5px;">
+            <button id="preset-mobile">Компромисс (Смартфон)</button>
+            <button id="preset-desktop">Средний (Компьютер)</button>
+            <button id="preset-ai">Лучший (Для ИИ)</button>
+          </div>
+        </div>
+        <div class="prop-group">
+          <label>Алгоритм масштабирования текста:</label>
+          <select id="size-algorithm-select">
+            <option value="bilinear">Стандартный (Билинейный GPU)</option>
+            <option value="stepup" selected>Ступенчатый (Повышенная четкость)</option>
+            <option value="lanczos">Математический (Ланцош Photoshop)</option>
+          </select>
+        </div>
+        <div class="prop-group">
+          <label>Точный размер (px):</label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="number" id="size-width" style="width: 80px;" min="1">
+            <button id="size-lock" title="Сохранять пропорции" style="padding: 4px 8px; background: #00ff99; color: #1e1e1e; font-weight: bold; border-color: #00ff99;">🔒</button>
+            <input type="number" id="size-height" style="width: 80px;" min="1">
+          </div>
+        </div>
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <button id="reset-size-btn" style="flex: 1; padding: 8px; background: #3c3c3c; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-size-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>

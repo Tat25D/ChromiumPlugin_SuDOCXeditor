@@ -1,0 +1,28 @@
+    <!-- Панель Файла -->
+      <div id="file-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+        <div class="prop-group">
+          <label>Имя при сохранении:</label>
+          <input type="text" id="file-save-name" style="width: 100%;">
+          <button id="file-name-reset" style="margin-top:6px; padding:6px; background:#3c3c3c; border:1px solid#555; color:#fff; cursor:pointer; border-radius:4px; width:100%;">Вернуть имя файла</button>
+        </div>
+
+        <div class="prop-group">
+          <label>Конструктор имени (порядок фиксирован):</label>
+          <label style="font-size:11px; color:#aaa;">Том:</label>
+          <input type="text" id="file-part-vol">
+          <label style="font-size:11px; color:#aaa;">Лист дела:</label>
+          <input type="text" id="file-part-leaf">
+          <div class="btn-row" id="file-leaf-quick"></div>
+          <label style="font-size:11px; color:#aaa;">Страница:</label>
+          <input type="text" id="file-part-page">
+          <div class="btn-row" id="file-page-quick"></div>
+          <label style="font-size:11px; color:#aaa;">Название документа:</label>
+          <input type="text" id="file-part-title">
+          <label style="font-size:11px; color:#aaa;">Дата вынесения (ГГГГ.ММ.ДД):</label>
+          <input type="text" id="file-part-date" placeholder="2026.07.10">
+          <label style="font-size:11px; color:#aaa;">Пометка:</label>
+          <input type="text" id="file-part-note">
+          <button id="file-assemble" class="action-btn" style="padding:8px; width:100%;">Собрать имя</button>
+          <div style="font-size:11px; color:#888; word-break: break-all;" id="file-preview">—</div>
+        </div>
+      </div>

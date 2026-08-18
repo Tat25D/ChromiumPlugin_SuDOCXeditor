@@ -1,0 +1,124 @@
+          <!-- Панель свойства инструмента "Маркер" -->
+          <!-- Панель Маркера -->
+          <div id="marker-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+
+            <div class="prop-group">
+              <label>Режим рисования:</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                <button id="marker-mode-censor" class="action-btn" style="padding:6px; white-space:normal;">Замазывание (Цензор)</button>
+                <button id="marker-mode-overlay" style="padding:6px; background:#3c3c3c; border:1px solid#555; white-space:normal;">Выделение (Overlay)</button>
+                <button id="marker-mode-text" style="grid-column: 1 / -1; padding:6px; background:#3c3c3c; border:1px solid#555; white-space:normal;">Текст</button>
+              </div>
+            </div>
+
+            <div class="prop-group" id="marker-palette-censor">
+              <label>Цвет цензора:</label>
+              <div class="btn-row">
+                <button class="marker-swatch" data-mcolor="#000000" title="Чёрный" style="width:28px;height:28px;background:#000000;"></button>
+                <button class="marker-swatch" data-mcolor="#808080" title="Серый (128,128,128)" style="width:28px;height:28px;background:#808080;"></button>
+                <button class="marker-swatch" data-mcolor="#FFFFFF" title="Белый" style="width:28px;height:28px;background:#FFFFFF;"></button>
+                <button class="marker-swatch" data-mcolor="smart" title="Умная ретушь «Фон рядом»: растворяет текст в бумаге" style="width:28px;height:28px;background:linear-gradient(135deg,#f5f0e6 40%,#8a8a8a 50%,#f5f0e6 60%);"></button>
+              </div>
+            </div>
+
+            <div class="prop-group" id="marker-palette-overlay" style="display:none;">
+              <label>Цвет выделения (12 неоновых):</label>
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+                <button class="marker-swatch" data-mcolor="#FFF700" title="Лимонно-жёлтый" style="height: 34px; background:#FFF700;"></button>
+                <button class="marker-swatch" data-mcolor="#FFF9B1" title="Пастельный жёлтый" style="height: 34px; background:#FFF9B1;"></button>
+                <button class="marker-swatch" data-mcolor="#66FF66" title="Салатовый" style="height: 34px; background:#66FF66;"></button>
+                <button class="marker-swatch" data-mcolor="#C8FFC8" title="Пастельный салатовый" style="height: 34px; background:#C8FFC8;"></button>
+                <button class="marker-swatch" data-mcolor="#FF4FD8" title="Ярко-розовый" style="height: 34px; background:#FF4FD8;"></button>
+                <button class="marker-swatch" data-mcolor="#FFC4EC" title="Пастельный розовый" style="height: 34px; background:#FFC4EC;"></button>
+                <button class="marker-swatch" data-mcolor="#33CCFF" title="Небесно-голубой" style="height: 34px; background:#33CCFF;"></button>
+                <button class="marker-swatch" data-mcolor="#C4E9FF" title="Пастельный голубой" style="height: 34px; background:#C4E9FF;"></button>
+                <button class="marker-swatch" data-mcolor="#FF9900" title="Оранжевый" style="height: 34px; background:#FF9900;"></button>
+                <button class="marker-swatch" data-mcolor="#FFD9A8" title="Пастельный оранжевый" style="height: 34px; background:#FFD9A8;"></button>
+                <button class="marker-swatch" data-mcolor="#9933FF" title="Фиолетовый" style="height: 34px; background:#9933FF;"></button>
+                <button class="marker-swatch" data-mcolor="#DCC4FF" title="Пастельный фиолетовый" style="height: 34px; background:#DCC4FF;"></button>
+              </div>
+            </div>
+
+            <div class="prop-group" id="marker-text-panel" style="display:none; flex-direction:column; gap:8px;">
+              <label>Текст (до 3 строк):</label>
+              <input type="text" id="marker-text-1" placeholder="Строка 1">
+              <input type="text" id="marker-text-2" placeholder="Строка 2">
+              <input type="text" id="marker-text-3" placeholder="Строка 3">
+              <label style="font-size:11px; color:#aaa;">Размер шрифта:</label>
+              <input type="range" id="marker-text-size" min="8" max="96" value="24" step="2">
+              <div style="font-size:11px; text-align:right; color:#00ff99;" id="marker-text-size-value">24 px</div>
+              <label style="font-size:11px; color:#aaa;">Цвет текста:</label>
+              <div class="btn-row">
+                <button class="marker-tswatch" data-tcolor="#000000" title="Чёрный" style="width:28px;height:28px;background:#000000;"></button>
+                <button class="marker-tswatch" data-tcolor="#FFFFFF" title="Белый" style="width:28px;height:28px;background:#FFFFFF;"></button>
+                <button class="marker-tswatch" data-tcolor="#D40000" title="Красный" style="width:28px;height:28px;background:#D40000;"></button>
+                <button class="marker-tswatch" data-tcolor="#0033CC" title="Синий" style="width:28px;height:28px;background:#0033CC;"></button>
+              </div>
+              <label style="font-size:11px; color:#aaa;">Шрифт:</label>
+              <select id="marker-text-font">
+                <option value="times" selected>Times (с засечками)</option>
+                <option value="arial">Arial (гротеск)</option>
+                <option value="courier">Courier (моно)</option>
+              </select>
+              <div class="btn-row">
+                <button id="marker-text-insert" class="action-btn" style="padding:6px;">Вставить</button>
+                <button id="marker-text-remove" style="padding:6px; background:#3c3c3c; border:1px solid#555;">Убрать последний</button>
+              </div>
+            </div>
+
+            <div class="prop-group">
+              <label>Толщина кисти:</label>
+              <input type="range" id="marker-size" min="4" max="120" value="20" step="2">
+              <div style="font-size: 11px; text-align: right; color:#00ff99;" id="marker-size-value">20 px</div>
+            </div>
+
+            <div class="prop-group">
+              <label>Прозрачность:</label>
+              <input type="range" id="marker-opacity" min="5" max="100" value="100" step="5">
+              <div style="font-size: 11px; text-align: right; color:#00ff99;" id="marker-opacity-value">100 %</div>
+            </div>
+
+            <div class="prop-group">
+              <label>Форма кисти:</label>
+              <div class="btn-row">
+                <button id="marker-shape-circle" class="action-btn" title="Круг" style="padding:6px;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg></button>
+                <button id="marker-shape-rect" title="Прямоугольник (текстовыделитель)" style="padding:6px; background:#3c3c3c; border:1px solid#555;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="8" y="2" width="4" height="20"/></svg></button>
+                <button id="marker-shape-square" title="Квадрат" style="padding:6px; background:#3c3c3c; border:1px solid#555;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="5" y="5" width="14" height="14"/></svg></button>
+              </div>
+            </div>
+
+            <div class="prop-group">
+              <label>Связанные линии (как в Photoshop):</label>
+              <button id="marker-linked-toggle" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Выкл (Shift — временно)</button>
+            </div>
+
+            <div class="prop-group">
+              <button id="marker-bypass-btn" title="Временно скрыть штрихи для сравнения до/после" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Показать без штрихов (до/после)</button>
+            </div>
+
+            <div style="display: flex; gap: 5px; margin-top: 5px;">
+              <button id="reset-marker-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+              <button id="apply-marker-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+            </div>
+          </div>
+
+          <!-- Палитра цветов для Замазывания (Показывается по умолчанию) -->
+
+          <!-- Палитра для Выделения текста (12 цветов, скрыта, включается при смене режима) -->
+          <div id="marker-overlay-colors" class="property-group" style="display: none;">
+              <label>Цвет выделителя (Multiply):</label>
+              <div class="color-palette-grid ocr-palette">
+                  <button class="swatch-neon active" data-hex="#ffff00" style="background:#ffff00;"></button>
+                  <button class="swatch-neon" data-hex="#00ff00" style="background:#00ff00;"></button>
+                  <button class="swatch-neon" data-hex="#ff00ff" style="background:#ff00ff;"></button>
+                  <button class="swatch-neon" data-hex="#00ffff" style="background:#00ffff;"></button>
+                  <button class="swatch-neon" data-hex="#ff9900" style="background:#ff9900;"></button>
+                  <button class="swatch-neon" data-hex="#9900ff" style="background:#9900ff;"></button>
+                  <button class="swatch-neon" data-hex="#ff6666" style="background:#ff6666;"></button>
+                  <button class="swatch-neon" data-hex="#66ff66" style="background:#66ff66;"></button>
+                  <button class="swatch-neon" data-hex="#66ffff" style="background:#66ffff;"></button>
+                  <button class="swatch-neon" data-hex="#ffcc00" style="background:#ffcc00;"></button>
+                  <button class="swatch-neon" data-hex="#ff99ff" style="background:#ff99ff;"></button>
+                  <button class="swatch-neon" data-hex="#ccff33" style="background:#ccff33;"></button>
+              </div>
+          </div>

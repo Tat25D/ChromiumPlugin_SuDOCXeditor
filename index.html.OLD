@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuDOCX - Редактор фото v.0.1</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<div class="app-container">
+  <header class="header-panel">
+    <div class="logo">SuDOCX - Редактор фото v.0.1</div>
+    <div class="menu-container">
+      <button class="menu-btn" id="file-menu-btn">Файл</button>
+      <div class="dropdown-content" id="file-dropdown">
+        <button id="menu-open-btn">Открыть</button>
+        <button id="menu-clear-btn">Очистить</button>
+        <div class="dropdown-divider"></div>
+        <button id="menu-export-btn">Экспорт</button>
+        <button id="menu-export-markers-btn" style="color: #666; cursor: not-allowed;" disabled>Экспорт с маркерами</button>
+      </div>
+    </div>
+    <button class="menu-btn">Правка</button>
+    <button class="menu-btn">Вид</button>
+    <input type="file" id="upload-input" accept="image/*" style="display: none;">
+  </header>
+
+  <aside class="tools-panel">
+    <button class="tool-btn active" data-tool="open" title="Открыть файл">
+      <svg viewBox="0 0 24 24"><path d="M19,20H5V8H19M19,6H13.41L11.41,4H5A2,2 0 0,0 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V8A2,2 0 0,0 19,6Z"/></svg>Открыть
+    </button>
+    <button class="tool-btn" data-tool="rotate" title="Повернуть">
+      <svg viewBox="0 0 24 24"><path d="M7.11,8.53L5.7,7.11C4.8,8.07 4.24,9.24 4.09,10.5H6.11C6.25,9.78 6.6,9.1 7.11,8.53M18,24H6V22H18V24M19.91,10.5H21.91C21.76,9.24 21.2,8.07 20.3,7.11L18.89,8.53C19.4,9.1 19.75,9.78 19.91,10.5M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12H2A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2C6.48,2 2,6.48 2,12H4A8,8 0 0,1 12,4Z"/></svg>Поворот
+    </button>
+    <button class="tool-btn" data-tool="size" title="Размер">
+      <svg viewBox="0 0 24 24"><path d="M21,15H19V17H17V19H15V21H21V15M3,9H5V7H7V5H9V3H3V9M21,3H15V5H17V7H19V9H21V3M3,21H9V19H7V17H5V15H3V21Z"/></svg>Размер
+    </button>
+    <button class="tool-btn" data-tool="perspective" title="Перспектива">
+      <svg viewBox="0 0 24 24"><path d="M12,2L3,5V19L12,22L21,19V5L12,2M12,4.18L19,6.5V17.5L12,19.82L5,17.5V6.5L12,4.18Z"/></svg>Перспект.
+    </button>
+    <button class="tool-btn" data-tool="grid" title="Решётка">
+      <svg viewBox="0 0 24 24"><path d="M10,4V8H14V4H10M16,4V8H20V4H16M10,10V14H14V10H10M16,10V14H20V10H16M10,16V20H14V16H10M16,16V20H20V16H16M4,4V8H8V4H4M4,10V14H8V10H4M4,16V20H8V16H4Z"/></svg>Решётка
+    </button>
+    <button class="tool-btn" data-tool="crop" title="Обрезка">
+      <svg viewBox="0 0 24 24"><path d="M7,17V1H5V5H1V7H5V17A2,2 0 0,0 7,19H17V23H19V19H23V17H7M17,15H19V7A2,2 0 0,0 17,5H9V7H17V15Z"/></svg>Обрезка
+    </button>
+    <button id="tab-color" class="tool-btn" data-tool="color" title="Цвет">
+      <svg viewBox="0 0 24 24"><path d="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,7.5A1.5,1.5 0 0,1 13,6A1.5,1.5 0 0,1 14.5,4.5A1.5,1.5 0 0,1 16,6A1.5,1.5 0 0,1 14.5,7.5M9.5,7.5A1.5,1.5 0 0,1 8,6A1.5,1.5 0 0,1 9.5,4.5A1.5,1.5 0 0,1 11,6A1.5,1.5 0 0,1 9.5,7.5M6.5,12A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A3,3 0 0,0 15,19A3,3 0 0,0 14.21,17.75C14.67,16.89 15.56,16.3 16.58,16.3H19A5,5 0 0,0 24,11.3C24,6.17 18.62,2 12,2Z"/></svg>Цвет
+    </button>
+    <button class="tool-btn" data-tool="marker" title="Маркер">
+      <svg viewBox="0 0 24 24"><path d="M20.71,5.63L18.37,3.25C18,2.86 17.35,2.86 16.96,3.25L15,5.22L18.78,9L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63M3,17.25V21H6.75L17.81,9.94L14.06,6.19L3,17.25Z"/></svg>Маркер
+    </button>
+      <button class="tool-btn" data-tool="file" title="Файл: имя сохранения и шаблон">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <path d="M6 2h9l5 5v15H6V2zm2 2v16h10V8h-4V4H8z"/>
+          <path d="M9 11h6v2H9v-2zm0 4h4v2H9v-2z"/>
+        </svg>
+        Файл
+      </button>
+    <button class="tool-btn" data-tool="export" title="Экспорт">
+      <svg viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>Экспорт
+    </button>
+  </aside>
+
+  <main class="workspace-panel" id="workspace">
+    <canvas id="editorCanvas"></canvas>
+
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="canvas-zoom-out" title="Отдалить">-</button>
+      <button class="zoom-btn" id="canvas-zoom-reset" title="Пиксель в пиксель">1:1</button>
+      <button class="zoom-btn" id="canvas-zoom-fit" title="Вписать документ и рамку выравнивания в окно">100%</button>
+      <button class="zoom-btn" id="canvas-zoom-in" title="Приблизить">+</button>
+    </div>
+
+  </main>
+  <aside class="properties-panel">
+    <div class="panel-title">Свойства SuDOCX</div>
+
+    <div id="tool-settings">
+      <div class="prop-group">
+        <label>Активный режим:</label>
+        <span id="current-tool-name" style="color: #00ff99; font-weight: bold;">Открыть</span>
+      </div>
+
+      <!-- Панель системной информации инструмента "Открыть" -->
+      <div id="open-controls" style="margin-top: 15px; display: flex; flex-direction: column; gap: 12px;">
+        <button id="main-open-file-btn" class="action-btn" style="padding: 10px; margin-bottom: 5px;">Выбрать файл изображения</button>
+        <button id="main-clear-file-btn" style="padding: 8px; background: #3c3c3c; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 4px; margin-bottom: 5px;">Очистить редактор</button>
+        <div class="prop-group">
+          <label>Имя файла:</label>
+          <span class="info-span" id="info-file-name">-- Нет файла --</span>
+        </div>
+        <div class="prop-group">
+          <label>Размер на диске:</label>
+          <span class="info-span" id="info-file-size">--</span>
+        </div>
+        <div class="prop-group">
+          <label>Ширина (X):</label>
+          <span class="info-span" id="info-file-w">0 px</span>
+        </div>
+        <div class="prop-group">
+          <label>Высота (Y):</label>
+          <span class="info-span" id="info-file-h">0 px</span>
+        </div>
+        <div class="prop-group">
+          <label>Ориентация страницы:</label>
+          <span class="info-span" id="info-file-orient">--</span>
+        </div>
+      </div>
+
+      <!-- Панель Поворота -->
+      <div id="rotate-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 15px;">
+        <div class="prop-group">
+          <label>Шаговый разворот:</label>
+          <div class="btn-row">
+            <button id="rot-left">-90°</button>
+            <button id="rot-half">180°</button>
+            <button id="rot-right">+90°</button>
+          </div>
+        </div>
+        <div class="prop-group">
+          <label>Точная подгонка (-45° ... +45°):</label>
+          <input type="range" id="fine-tune-angle" min="-45" max="45" value="0" step="0.5">
+          <div style="font-size: 11px; text-align: right; color: #00ff99;" id="angle-value">0°</div>
+        </div>
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <button id="reset-rotate-btn" style="flex: 1; padding: 8px; background: #3c3c3c; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-rotate-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>
+
+      <!-- Панель Размера -->
+      <div id="size-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+        <div class="prop-group">
+          <label>Текущий размер:</label>
+          <span id="size-current-value" style="font-size: 13px; color: #888;">0 x 0 px</span>
+        </div>
+        <div class="prop-group">
+          <label>Быстрые пресеты:</label>
+          <div class="btn-row" style="flex-direction: column; gap: 5px;">
+            <button id="preset-mobile">Компромисс (Смартфон)</button>
+            <button id="preset-desktop">Средний (Компьютер)</button>
+            <button id="preset-ai">Лучший (Для ИИ)</button>
+          </div>
+        </div>
+        <div class="prop-group">
+          <label>Алгоритм масштабирования текста:</label>
+          <select id="size-algorithm-select">
+            <option value="bilinear">Стандартный (Билинейный GPU)</option>
+            <option value="stepup" selected>Ступенчатый (Повышенная четкость)</option>
+            <option value="lanczos">Математический (Ланцош Photoshop)</option>
+          </select>
+        </div>
+        <div class="prop-group">
+          <label>Точный размер (px):</label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="number" id="size-width" style="width: 80px;" min="1">
+            <button id="size-lock" title="Сохранять пропорции" style="padding: 4px 8px; background: #00ff99; color: #1e1e1e; font-weight: bold; border-color: #00ff99;">🔒</button>
+            <input type="number" id="size-height" style="width: 80px;" min="1">
+          </div>
+        </div>
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <button id="reset-size-btn" style="flex: 1; padding: 8px; background: #3c3c3c; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-size-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>
+
+      <!-- Панель Перспективы -->
+      <div id="perspective-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+        <div class="prop-group">
+          <label>Режим работы:</label>
+          <button id="persp-toggle-setup" style="padding: 8px; background: #00ff99; color: #1e1e1e; font-weight: bold; border-color: #00ff99; width: 100%;">Режим: Настройка маркеров</button>
+        </div>
+        <p id="persp-hint" style="font-size: 11px; color: #aaa;">
+          Сейчас углы рамки двигаются свободно. Разместите их на реальных углах искаженного документа.
+        </p>
+        <div class="prop-group" style="gap: 8px; margin-top: 5px;">
+          <label style="font-size: 11px; color: #888;">Точные координаты углов (px):</label>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div>
+              <label style="font-size: 10px; display:block; margin-bottom:2px;">Левый верхний (TL):</label>
+              <div style="display:flex; gap:5px;"><input type="number" id="persp-tl-x" placeholder="X" style="width:50%;"><input type="number" id="persp-tl-y" placeholder="Y" style="width:50%;"></div>
+            </div>
+            <div>
+              <label style="font-size: 10px; display:block; margin-bottom:2px;">Правый верхний (TR):</label>
+              <div style="display:flex; gap:5px;"><input type="number" id="persp-tr-x" placeholder="X" style="width:50%;"><input type="number" id="persp-tr-y" placeholder="Y" style="width:50%;"></div>
+            </div>
+            <div>
+              <label style="font-size: 10px; display:block; margin-bottom:2px;">Левый нижний (BL):</label>
+              <div style="display:flex; gap:5px;"><input type="number" id="persp-bl-x" placeholder="X" style="width:50%;"><input type="number" id="persp-bl-y" placeholder="Y" style="width:50%;"></div>
+            </div>
+            <div>
+              <label style="font-size: 10px; display:block; margin-bottom:2px;">Правый нижний (BR):</label>
+              <div style="display:flex; gap:5px;"><input type="number" id="persp-br-x" placeholder="X" style="width:50%;"><input type="number" id="persp-br-y" placeholder="Y" style="width:50%;"></div>
+            </div>
+          </div>
+        </div>
+
+      <div class="prop-group">
+        <label>Качество рендера (меш / суперсэмплинг):</label>
+        <select id="persp-quality-select">
+          <option value="draft" selected>Черновик (смартфон)</option>
+          <option value="normal">Среднее</option>
+          <option value="high">Высокое (ПК)</option>
+          <option value="ultra">Ультра (мощный ПК)</option>
+        </select>
+      </div>
+
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <button id="reset-perspective-btn" style="flex: 1; padding: 8px; background: #3c3c3c; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-perspective-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>
+
+      <!-- Панель Решётки (Mesh Warp Pro) -->
+      <div id="grid-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+        <div class="prop-group">
+          <label>Пресеты ячеек:</label>
+          <div class="btn-row" id="grid-presets-container">
+            <button id="grid-preset-3" class="action-btn" style="padding:6px;">3x3</button>
+            <button id="grid-preset-4" style="padding:6px; background:#3c3c3c; border:1px solid#555;">4x4</button>
+          </div>
+        </div>
+
+        <div class="prop-group">
+          <label>Область деформации:</label>
+          <button id="grid-btn-define" style="padding: 8px; background:#3c3c3c; color:#fff; border: 1px solid#555; width: 100%; cursor: pointer;">Задать решётку (Мышью)</button>
+        </div>
+
+        <div class="prop-group">
+          <label id="grid-action-label">Радиус действия эффекта (лог.):</label>
+          <input type="range" id="grid-radius-action" min="0" max="100" value="81" step="1">
+          <div style="font-size: 11px; text-align: right; color:#00ff99;" id="grid-radius-action-value">150 px</div>
+        </div>
+
+        <div class="prop-group">
+          <label>Радиус сглаживания краев:</label>
+          <input type="range" id="grid-radius-smooth" min="0" max="500" value="400" step="5">
+          <div style="font-size: 11px; text-align: right; color:#00ff99;" id="grid-radius-smooth-value">400 px</div>
+        </div>
+
+        <div class="prop-group">
+          <label>Тип деформации:</label>
+          <select id="grid-mode-select">
+            <option value="rect" selected>Прямоугольник (гнуть всю область)</option>
+            <option value="radial">Радиус от маркера</option>
+            <option value="tps">Лист (сплайн TPS)</option>
+          </select>
+        </div>
+
+        <div class="prop-group">
+          <label>Качество рендера (меш / суперсэмплинг):</label>
+            <select id="grid-quality-select">
+              <option value="draft" selected>Черновик (смартфон)</option>
+              <option value="normal">Среднее</option>
+              <option value="high">Высокое (ПК)</option>
+              <option value="ultra">Ультра (мощный ПК)</option>
+            </select>
+        </div>
+
+        <div class="prop-group" style="margin-top: 5px;">
+          <label>Живой просмотр деформации:</label>
+          <button id="grid-toggle-interactive" style="padding: 6px; background:#ff3333; border: 1px solid#ff3333; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Интерактивно: Включено</button>
+        </div>
+
+        <div style="display: flex; gap: 5px; margin-top: 10px;">
+          <button id="reset-grid-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-grid-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>
+
+      <!-- Панель Обрезки -->
+      <div id="crop-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+
+        <div class="prop-group">
+        <label>Наращивание полей:</label>
+        <button id="crop-extend-toggle" style="padding: 6px; background:#007acc; border: 1px solid#007acc; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Наращивать: Вкл</button>
+        </div>
+
+        <div class="prop-group">
+        <label>Заливка полей:</label>
+        <div class="btn-row">
+            <button class="crop-fswatch" data-fcolor="bg" title="Фон документа (умная заливка с градиентом)" style="width:28px;height:28px;background:linear-gradient(135deg,#f5f0e6 40%,#8a8a8a 50%,#f5f0e6 60%);"></button>
+            <button class="crop-fswatch" data-fcolor="black" title="Чёрный" style="width:28px;height:28px;background:#000000;"></button>
+            <button class="crop-fswatch" data-fcolor="gray" title="Серый" style="width:28px;height:28px;background:#808080;"></button>
+            <button class="crop-fswatch" data-fcolor="white" title="Белый" style="width:28px;height:28px;background:#FFFFFF;"></button>
+        </div>
+        <label style="font-size: 11px; color:#aaa;">Порог тёмных тонов (текст/тени):</label>
+        <input type="range" id="crop-bg-threshold" min="0" max="240" value="130" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-bg-threshold-value">130</div>
+        <label style="font-size: 11px; color:#aaa;">Очистка от остатков текста:</label>
+        <input type="range" id="crop-clean" min="0" max="100" value="70" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-clean-value">70 %</div>
+        <label style="font-size: 11px; color:#aaa;">Захват кромки (внутрь оригинала):</label>
+        <input type="range" id="crop-overlap" min="0" max="32" value="8" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-overlap-value">8 px</div>
+        <label style="font-size: 11px; color:#aaa;">Учёт градиента освещения:</label>
+        <label style="font-size: 11px; color:#aaa;">Тон заливки (светлее / темнее):</label>
+        <input type="range" id="crop-tone" min="-60" max="60" value="0" step="2">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-tone-value">0</div>
+        <input type="range" id="crop-grad" min="0" max="100" value="60" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-grad-value">60 %</div>
+        <label style="font-size: 11px; color:#aaa;">Прозрачность эффекта:</label>
+        <div class="prop-group">
+          <label>Живой просмотр:</label>
+          <button id="crop-interactive" style="padding: 6px; background:#ff3333; border: 1px solid#ff3333; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Интерактивно: Включен</button>
+        </div>
+        <input type="range" id="crop-fill-opacity" min="0" max="100" value="100" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="crop-fill-opacity-value">100 %</div>
+        </div>
+
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <button id="reset-crop-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-crop-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>
+
+      <!-- Панель инструмента "Цвет" (Скрыта по умолчанию) -->
+
+    <div id="color-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+
+      <div class="prop-group">
+        <label>Слой 1 — Выравнивание освещённости:</label>
+        <button id="color-toggle-level" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Сила:</label>
+        <input type="range" id="color-level-strength" min="0" max="100" value="70" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-strength-value">70 %</div>
+        <label style="font-size: 11px; color:#aaa;">Масштаб теней (блок):</label>
+        <input type="range" id="color-level-block" min="16" max="128" value="48" step="8">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-block-value">48 px</div>
+        <label style="font-size: 11px; color:#aaa;">Белизна бумаги:</label>
+        <input type="range" id="color-level-target" min="180" max="255" value="245" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-target-value">245</div>
+        <label style="font-size: 11px; color:#aaa;">Глубина коррекции (лимит усиления):</label>
+        <input type="range" id="color-level-depth" min="12" max="40" value="30" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-depth-value">x3.0</div>
+        <label style="font-size: 11px; color:#aaa;">Устранение цветового отлива:</label>
+        <input type="range" id="color-level-color" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-level-color-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 2 — Улучшенный OCR (ЧБ):</label>
+        <button id="color-toggle-ocr" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Размер окна (Шрифт):</label>
+        <input type="range" id="color-ocr-window" min="5" max="100" value="15" step="2">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-ocr-window-value">15 px</div>
+        <label style="font-size: 11px; color:#aaa;">Чувствительность (Порог):</label>
+        <input type="range" id="color-ocr-sens" min="0" max="100" step="1" value="36">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-ocr-sens-value">15 %</div>
+        <label style="font-size: 11px; color:#aaa;">Сила эффекта:</label>
+        <input type="range" id="color-ocr-strength" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-ocr-strength-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 3 — Оттенки серого:</label>
+        <button id="color-toggle-gray" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Сила:</label>
+        <input type="range" id="color-gray-strength" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-gray-strength-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 4 — Яркость и контраст:</label>
+        <button id="color-toggle-bc" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <label style="font-size: 11px; color:#aaa;">Яркость:</label>
+        <input type="range" id="color-bc-bright" min="-100" max="100" value="0" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-bright-value">0</div>
+        <label style="font-size: 11px; color:#aaa;">Контраст:</label>
+        <input type="range" id="color-bc-contrast" min="-100" max="100" value="0" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-contrast-value">0</div>
+        <label style="font-size: 11px; color:#aaa;">Гамма (полутона):</label>
+        <input type="range" id="color-bc-gamma" min="50" max="200" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-gamma-value">1.00</div>
+        <label>Сила эффекта:</label>
+        <input type="range" id="color-bc-strength" min="0" max="100" value="100" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-bc-strength-value">100 %</div>
+      </div>
+
+      <div class="prop-group">
+        <label>Слой 5 — Ретушь-кисть:</label>
+        <button id="color-toggle-brush" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Слой: Выкл</button>
+        <select id="color-brush-mode">
+          <option value="auto" selected>Авто (фон→белый, текст→чёрный)</option>
+          <option value="bg">Осветлить фон</option>
+          <option value="text">Затемнить текст</option>
+        </select>
+        <label style="font-size: 11px; color:#aaa;">Радиус кисти:</label>
+        <input type="range" id="color-brush-radius" min="5" max="100" value="20" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-radius-value">20 px</div>
+        <label style="font-size: 11px; color:#aaa;">Сила кисти:</label>
+        <input type="range" id="color-brush-strength" min="5" max="100" value="60" step="5">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-strength-value">60 %</div>
+        <label style="font-size: 11px; color:#aaa;">Порог Авто-режима:</label>
+        <input type="range" id="color-brush-threshold" min="0" max="255" value="128" step="1">
+        <div style="font-size: 11px; text-align: right; color:#00ff99;" id="color-brush-threshold-value">128</div>
+        <button id="color-brush-clear" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Очистить штрихи</button>
+      </div>
+
+      <div class="prop-group" style="margin-top: 5px;">
+        <label>Живой просмотр:</label>
+        <button id="color-toggle-interactive" style="padding: 6px; background:#ff3333; border: 1px solid#ff3333; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Интерактивно: Включен</button>
+      </div>
+
+      <div class="prop-group">
+        <label>Сравнение до/после:</label>
+        <button id="color-bypass-btn" title="Показать оригинал без всех слоёв эффекта" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Без эффектов: Выкл</button>
+      </div>
+
+      <div style="display: flex; gap: 5px; margin-top: 5px;">
+        <button id="reset-color-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+        <button id="apply-color-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+      </div>
+    </div>
+
+          <!-- Панель свойства инструмента "Маркер" -->
+          <!-- Панель Маркера -->
+          <div id="marker-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+
+            <div class="prop-group">
+              <label>Режим рисования:</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                <button id="marker-mode-censor" class="action-btn" style="padding:6px; white-space:normal;">Замазывание (Цензор)</button>
+                <button id="marker-mode-overlay" style="padding:6px; background:#3c3c3c; border:1px solid#555; white-space:normal;">Выделение (Overlay)</button>
+                <button id="marker-mode-text" style="grid-column: 1 / -1; padding:6px; background:#3c3c3c; border:1px solid#555; white-space:normal;">Текст</button>
+              </div>
+            </div>
+
+            <div class="prop-group" id="marker-palette-censor">
+              <label>Цвет цензора:</label>
+              <div class="btn-row">
+                <button class="marker-swatch" data-mcolor="#000000" title="Чёрный" style="width:28px;height:28px;background:#000000;"></button>
+                <button class="marker-swatch" data-mcolor="#808080" title="Серый (128,128,128)" style="width:28px;height:28px;background:#808080;"></button>
+                <button class="marker-swatch" data-mcolor="#FFFFFF" title="Белый" style="width:28px;height:28px;background:#FFFFFF;"></button>
+                <button class="marker-swatch" data-mcolor="smart" title="Умная ретушь «Фон рядом»: растворяет текст в бумаге" style="width:28px;height:28px;background:linear-gradient(135deg,#f5f0e6 40%,#8a8a8a 50%,#f5f0e6 60%);"></button>
+              </div>
+            </div>
+
+            <div class="prop-group" id="marker-palette-overlay" style="display:none;">
+              <label>Цвет выделения (12 неоновых):</label>
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+                <button class="marker-swatch" data-mcolor="#FFF700" title="Лимонно-жёлтый" style="height: 34px; background:#FFF700;"></button>
+                <button class="marker-swatch" data-mcolor="#FFF9B1" title="Пастельный жёлтый" style="height: 34px; background:#FFF9B1;"></button>
+                <button class="marker-swatch" data-mcolor="#66FF66" title="Салатовый" style="height: 34px; background:#66FF66;"></button>
+                <button class="marker-swatch" data-mcolor="#C8FFC8" title="Пастельный салатовый" style="height: 34px; background:#C8FFC8;"></button>
+                <button class="marker-swatch" data-mcolor="#FF4FD8" title="Ярко-розовый" style="height: 34px; background:#FF4FD8;"></button>
+                <button class="marker-swatch" data-mcolor="#FFC4EC" title="Пастельный розовый" style="height: 34px; background:#FFC4EC;"></button>
+                <button class="marker-swatch" data-mcolor="#33CCFF" title="Небесно-голубой" style="height: 34px; background:#33CCFF;"></button>
+                <button class="marker-swatch" data-mcolor="#C4E9FF" title="Пастельный голубой" style="height: 34px; background:#C4E9FF;"></button>
+                <button class="marker-swatch" data-mcolor="#FF9900" title="Оранжевый" style="height: 34px; background:#FF9900;"></button>
+                <button class="marker-swatch" data-mcolor="#FFD9A8" title="Пастельный оранжевый" style="height: 34px; background:#FFD9A8;"></button>
+                <button class="marker-swatch" data-mcolor="#9933FF" title="Фиолетовый" style="height: 34px; background:#9933FF;"></button>
+                <button class="marker-swatch" data-mcolor="#DCC4FF" title="Пастельный фиолетовый" style="height: 34px; background:#DCC4FF;"></button>
+              </div>
+            </div>
+
+            <div class="prop-group" id="marker-text-panel" style="display:none; flex-direction:column; gap:8px;">
+              <label>Текст (до 3 строк):</label>
+              <input type="text" id="marker-text-1" placeholder="Строка 1">
+              <input type="text" id="marker-text-2" placeholder="Строка 2">
+              <input type="text" id="marker-text-3" placeholder="Строка 3">
+              <label style="font-size:11px; color:#aaa;">Размер шрифта:</label>
+              <input type="range" id="marker-text-size" min="8" max="96" value="24" step="2">
+              <div style="font-size:11px; text-align:right; color:#00ff99;" id="marker-text-size-value">24 px</div>
+              <label style="font-size:11px; color:#aaa;">Цвет текста:</label>
+              <div class="btn-row">
+                <button class="marker-tswatch" data-tcolor="#000000" title="Чёрный" style="width:28px;height:28px;background:#000000;"></button>
+                <button class="marker-tswatch" data-tcolor="#FFFFFF" title="Белый" style="width:28px;height:28px;background:#FFFFFF;"></button>
+                <button class="marker-tswatch" data-tcolor="#D40000" title="Красный" style="width:28px;height:28px;background:#D40000;"></button>
+                <button class="marker-tswatch" data-tcolor="#0033CC" title="Синий" style="width:28px;height:28px;background:#0033CC;"></button>
+              </div>
+              <label style="font-size:11px; color:#aaa;">Шрифт:</label>
+              <select id="marker-text-font">
+                <option value="times" selected>Times (с засечками)</option>
+                <option value="arial">Arial (гротеск)</option>
+                <option value="courier">Courier (моно)</option>
+              </select>
+              <div class="btn-row">
+                <button id="marker-text-insert" class="action-btn" style="padding:6px;">Вставить</button>
+                <button id="marker-text-remove" style="padding:6px; background:#3c3c3c; border:1px solid#555;">Убрать последний</button>
+              </div>
+            </div>
+
+            <div class="prop-group">
+              <label>Толщина кисти:</label>
+              <input type="range" id="marker-size" min="4" max="120" value="20" step="2">
+              <div style="font-size: 11px; text-align: right; color:#00ff99;" id="marker-size-value">20 px</div>
+            </div>
+
+            <div class="prop-group">
+              <label>Прозрачность:</label>
+              <input type="range" id="marker-opacity" min="5" max="100" value="100" step="5">
+              <div style="font-size: 11px; text-align: right; color:#00ff99;" id="marker-opacity-value">100 %</div>
+            </div>
+
+            <div class="prop-group">
+              <label>Форма кисти:</label>
+              <div class="btn-row">
+                <button id="marker-shape-circle" class="action-btn" title="Круг" style="padding:6px;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg></button>
+                <button id="marker-shape-rect" title="Прямоугольник (текстовыделитель)" style="padding:6px; background:#3c3c3c; border:1px solid#555;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="8" y="2" width="4" height="20"/></svg></button>
+                <button id="marker-shape-square" title="Квадрат" style="padding:6px; background:#3c3c3c; border:1px solid#555;"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="5" y="5" width="14" height="14"/></svg></button>
+              </div>
+            </div>
+
+            <div class="prop-group">
+              <label>Связанные линии (как в Photoshop):</label>
+              <button id="marker-linked-toggle" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Выкл (Shift — временно)</button>
+            </div>
+
+            <div class="prop-group">
+              <button id="marker-bypass-btn" title="Временно скрыть штрихи для сравнения до/после" style="padding: 6px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px; width: 100%;">Показать без штрихов (до/после)</button>
+            </div>
+
+            <div style="display: flex; gap: 5px; margin-top: 5px;">
+              <button id="reset-marker-btn" style="flex: 1; padding: 8px; background:#3c3c3c; border: 1px solid#555; color:#fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+              <button id="apply-marker-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+            </div>
+          </div>
+
+          <!-- Палитра цветов для Замазывания (Показывается по умолчанию) -->
+
+          <!-- Палитра для Выделения текста (12 цветов, скрыта, включается при смене режима) -->
+          <div id="marker-overlay-colors" class="property-group" style="display: none;">
+              <label>Цвет выделителя (Multiply):</label>
+              <div class="color-palette-grid ocr-palette">
+                  <button class="swatch-neon active" data-hex="#ffff00" style="background:#ffff00;"></button>
+                  <button class="swatch-neon" data-hex="#00ff00" style="background:#00ff00;"></button>
+                  <button class="swatch-neon" data-hex="#ff00ff" style="background:#ff00ff;"></button>
+                  <button class="swatch-neon" data-hex="#00ffff" style="background:#00ffff;"></button>
+                  <button class="swatch-neon" data-hex="#ff9900" style="background:#ff9900;"></button>
+                  <button class="swatch-neon" data-hex="#9900ff" style="background:#9900ff;"></button>
+                  <button class="swatch-neon" data-hex="#ff6666" style="background:#ff6666;"></button>
+                  <button class="swatch-neon" data-hex="#66ff66" style="background:#66ff66;"></button>
+                  <button class="swatch-neon" data-hex="#66ffff" style="background:#66ffff;"></button>
+                  <button class="swatch-neon" data-hex="#ffcc00" style="background:#ffcc00;"></button>
+                  <button class="swatch-neon" data-hex="#ff99ff" style="background:#ff99ff;"></button>
+                  <button class="swatch-neon" data-hex="#ccff33" style="background:#ccff33;"></button>
+              </div>
+          </div>
+
+    <!-- Панель Файла -->
+      <div id="file-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 12px;">
+        <div class="prop-group">
+          <label>Имя при сохранении:</label>
+          <input type="text" id="file-save-name" style="width: 100%;">
+          <button id="file-name-reset" style="margin-top:6px; padding:6px; background:#3c3c3c; border:1px solid#555; color:#fff; cursor:pointer; border-radius:4px; width:100%;">Вернуть имя файла</button>
+        </div>
+
+        <div class="prop-group">
+          <label>Конструктор имени (порядок фиксирован):</label>
+          <label style="font-size:11px; color:#aaa;">Том:</label>
+          <input type="text" id="file-part-vol">
+          <label style="font-size:11px; color:#aaa;">Лист дела:</label>
+          <input type="text" id="file-part-leaf">
+          <div class="btn-row" id="file-leaf-quick"></div>
+          <label style="font-size:11px; color:#aaa;">Страница:</label>
+          <input type="text" id="file-part-page">
+          <div class="btn-row" id="file-page-quick"></div>
+          <label style="font-size:11px; color:#aaa;">Название документа:</label>
+          <input type="text" id="file-part-title">
+          <label style="font-size:11px; color:#aaa;">Дата вынесения (ГГГГ.ММ.ДД):</label>
+          <input type="text" id="file-part-date" placeholder="2026.07.10">
+          <label style="font-size:11px; color:#aaa;">Пометка:</label>
+          <input type="text" id="file-part-note">
+          <button id="file-assemble" class="action-btn" style="padding:8px; width:100%;">Собрать имя</button>
+          <div style="font-size:11px; color:#888; word-break: break-all;" id="file-preview">—</div>
+        </div>
+      </div>
+
+      <!-- Панель Экспорта -->
+      <div id="export-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 15px;">
+        <button class="action-btn" id="download-btn" style="padding: 10px;">Скачать результат</button>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="statusbar-panel">
+    <div id="status-message">Готов к работе. Воспользуйтесь кнопкой "Открыть" для загрузки бланка А4.</div>
+    <div class="status-right">
+      <span id="status-zoom">Зум: 100%</span>
+      <span id="status-coords">X: 0 Y: 0</span>
+    </div>
+  </footer>
+
+</div>
+
+<script type="module" src="editor.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+      <!-- Панель Поворота -->
+      <div id="rotate-controls" style="margin-top: 15px; display: none; flex-direction: column; gap: 15px;">
+        <div class="prop-group">
+          <label>Шаговый разворот:</label>
+          <div class="btn-row">
+            <button id="rot-left">-90°</button>
+            <button id="rot-half">180°</button>
+            <button id="rot-right">+90°</button>
+          </div>
+        </div>
+        <div class="prop-group">
+          <label>Точная подгонка (-45° ... +45°):</label>
+          <input type="range" id="fine-tune-angle" min="-45" max="45" value="0" step="0.5">
+          <div style="font-size: 11px; text-align: right; color: #00ff99;" id="angle-value">0°</div>
+        </div>
+        <div style="display: flex; gap: 5px; margin-top: 5px;">
+          <button id="reset-rotate-btn" style="flex: 1; padding: 8px; background: #3c3c3c; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 4px;">Сброс</button>
+          <button id="apply-rotate-btn" class="action-btn" style="flex: 1; padding: 8px;">Применить</button>
+        </div>
+      </div>
