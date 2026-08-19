@@ -4,7 +4,7 @@
 <img width="970" height="1015" alt="image" src="https://github.com/user-attachments/assets/9a157695-bbf0-43ff-a59d-b5d6adad6451" />
 <br>
 <br>
-# SuDOCX Photo Editor — руководство пользователя
+# SuDOCXeditor — руководство пользователя
 
 > SuDOCX превращает фотографию бумажного документа в чистый, ровный скан:
 > исправляет завалы и изгибы, выравнивает свет, делает текст контрастным,
